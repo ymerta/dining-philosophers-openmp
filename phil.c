@@ -59,8 +59,14 @@ void dine(int philosopher_id)
     printf("Philosopher %d finished dining all %d meals.\n", philosopher_id, DINNER_TIME);
 }
 
-int main()
+int main(int argc, char *argv[])
 {
+    // Komut satırından thread sayısı ve schedule tipi al
+    if (argc >= 2)
+        num_threads = atoi(argv[1]);
+
+    if (argc >= 3)
+        schedule_type = atoi(argv[2]);
 
     forks = malloc(NUM_PHILOSOPHERS * sizeof(omp_lock_t));
     dinned_times = malloc(NUM_PHILOSOPHERS * sizeof(int));
