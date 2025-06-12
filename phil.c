@@ -31,7 +31,7 @@ void dine(int philosopher_id)
 
     while (dinned_times[philosopher_id] < DINNER_TIME)
     {
-        printf("Philosopher %d is thinking\n", philosopher_id);
+        // Sessiz düşünme ve yeme (terminalde gösterme)
         usleep(random_usleep_time(500000));
 
         if (philosopher_id == NUM_PHILOSOPHERS - 1)
@@ -45,9 +45,7 @@ void dine(int philosopher_id)
             omp_set_lock(&forks[right]);
         }
 
-        printf("Philosopher %d starts eating\n", philosopher_id);
-        usleep(random_usleep_time(500000));
-        printf("Philosopher %d stops eating\n", philosopher_id);
+        usleep(random_usleep_time(500000)); // yeme süresi
 
 #pragma omp atomic
         dinned_times[philosopher_id]++;
@@ -55,8 +53,6 @@ void dine(int philosopher_id)
         omp_unset_lock(&forks[left]);
         omp_unset_lock(&forks[right]);
     }
-
-    printf("Philosopher %d finished dining all %d meals.\n", philosopher_id, DINNER_TIME);
 }
 
 int main(int argc, char *argv[])
